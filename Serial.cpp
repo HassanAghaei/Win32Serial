@@ -1,5 +1,5 @@
 // ********************************** Henri Terminal May 2017
-
+// Read/Write from/to a serial port using WIN32 Console APP (C++) in VS2013
 #include "stdafx.h"
 #include <iostream>   //cout 
 #include <Windows.h>
@@ -21,11 +21,11 @@ void main(void)
 
 Henri1:
 
-	char  TempChar;
-	char  SerialBuffer[256];
+	char  lpBuffer2;   // For Read Buffer
+	char  SerialBuffer[256]; // For Read Buffer
 	DWORD NoBytesRead;
 	HANDLE hComm;
-	int i = 0;
+	int a = 0, b = 0;
 	BOOL   Status;
 
 
@@ -170,18 +170,18 @@ Henri1:
 		std::cout <<    " Characters Received:" << endl;
 		do
 		{
-			Status = ReadFile(hComm, &TempChar, sizeof(TempChar), &NoBytesRead, NULL);
-			SerialBuffer[i] = TempChar;
-			i++;
+			Status = ReadFile(hComm, &lpBuffer2, sizeof(lpBuffer2), &NoBytesRead, NULL);
+			SerialBuffer[a] = lpBuffer2;
+			a++;
 		} while (NoBytesRead > 0);
 
 
 		// Print the Read:
 
 		
-		int j = 0;
-		for (j = 3; j < i - 1; j++)		// j == 3 to skip the echo!
-			std::cout << SerialBuffer[j] ;
+		
+		for (b = 3; b < a - 1; b++)		// b == 3 to skip the echo!
+			std::cout << SerialBuffer[b] ;
 
 	}
 	CloseHandle(hComm);
